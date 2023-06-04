@@ -1,0 +1,19 @@
+module "ec2_instance2" {
+  source  = "terraform-aws-modules/ec2-instance/aws"
+  version = "~> 3.0"
+
+  name = "APPLICATION"
+
+  ami                    = "ami-0aa2b7722dc1b5612"
+  instance_type          = "t2.small"
+  key_name               = "ubunnodeB"
+  monitoring             = true
+  associate_public_ip_address = false
+  vpc_security_group_ids = [aws_security_group.AssignmentPVSG.id]
+  subnet_id              = module.vpc.private_subnets[2]
+
+  tags = {
+    managedby   = "Rameshwar"
+    Environment = "Assignment"
+  }
+}

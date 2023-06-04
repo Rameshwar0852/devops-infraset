@@ -1,0 +1,19 @@
+module "ec2_instance1" {
+  source  = "terraform-aws-modules/ec2-instance/aws"
+  version = "~> 3.0"
+
+  name = "BASTION"
+
+  ami                    = "ami-0aa2b7722dc1b5612"
+  instance_type          = "t2.medium"
+  key_name               = "ubunpvnodeA"
+  monitoring             = true
+  associate_public_ip_address = false
+  vpc_security_group_ids = [aws_security_group.AssignmentPVSG.id]
+  subnet_id              = module.vpc.private_subnets[0]
+
+  tags = {
+    managedby   = "Rameshwar"
+    Environment = "Assignment"
+  }
+}
